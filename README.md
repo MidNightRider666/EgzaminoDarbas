@@ -1,5 +1,9 @@
-# books-mysql-async-type1
+# EgzaminoDarbas
 
 ## install
 
-1. npm i 
+1. Create Boiler Plate for my Work
+
+2. Execute NPM i to install all dependencies
+
+3. Adding utilities
