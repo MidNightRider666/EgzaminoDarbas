@@ -7,7 +7,7 @@ function HidePass(plainPassword) {
 }
 
 function verifyPass(enteredPass, userObj) {
-  return bcrypt.compareSync(enteredPass, userObj.password);
+  return bcrypt.compareSync(enteredPass, userObj.Password);
 }
 
 function generateJwtToken(userObj) {

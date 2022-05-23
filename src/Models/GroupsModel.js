@@ -9,12 +9,13 @@ async function GetAccByUserAndGroups(userId) {
   try {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
-      SELECT groups.id, groups.Title 
-      FROM ((${tableName} 
-      INNER JOIN ${tablename2} ON accounts.Groups_id = groups.id) 
-      INNER JOIN ${tablename3} ON accounts.Users_id = users.id)
-      WHERE groups.Archived = 0;
-      WHERE Users_id = ?;`;
+      SELECT groups.Id, groups.Title
+        FROM ((${tableName} 
+          INNER JOIN ${tablename2} ON accounts.group_id = groups.Id) 
+          INNER JOIN ${tablename3} ON accounts.user_id = users.id)
+          WHERE groups.Archived = 0
+          AND
+          user_id = ?;`;
     const [Acc] = await conn.query(sql, [userId]);
     await conn.close();
     return Acc;
@@ -39,19 +40,20 @@ async function ArchiveGroups(id) {
   }
 }
 
-async function ArchivedGroups(id) {
+async function ArchivedGroups(userId) {
     try {
       const conn = await mysql.createConnection(dbConfig);
       const sql = `
-      SELECT groups.id, groups.Title 
-      FROM ((${tableName} 
-      INNER JOIN ${tablename2} ON accounts.Groups_id = groups.id) 
-      INNER JOIN ${tablename3} ON accounts.Users_id = users.id)
-      WHERE groups.Archived = 1;
-      WHERE Users_id = ?;`;
-      const [insertResult] = await conn.execute(sql [id]);
-      await conn.close();
-      return insertResult;
+      SELECT groups.Id, groups.Title
+        FROM ((${tableName} 
+          INNER JOIN ${tablename2} ON accounts.group_id = groups.Id) 
+          INNER JOIN ${tablename3} ON accounts.user_id = users.id)
+          WHERE groups.Archived = 1
+          AND
+          user_id = ?;`;
+          const [Acc] = await conn.query(sql, [userId]);
+          await conn.close();
+          return Acc;
     } catch (error) {
       return false;
     }

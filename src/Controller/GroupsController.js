@@ -6,8 +6,8 @@ const {
 } = require('../Models/GroupsModel');
 
 async function GetAccIndex(req, res) {
-  const { Users_id } = req;
-const FoundGroups = await GetAccByUserAndGroups(Users_id);
+  const { user_id} = req;
+const FoundGroups = await GetAccByUserAndGroups(user_id);
 
   return FoundGroups === false
     ? failResponce(res)
@@ -22,8 +22,8 @@ async function ArchGroups(req, res) {;
 }
 
 async function GetArchivedGroups(req, res) {
-    const { Users_id } = req;
-    const FoundGroups = await ArchivedGroups(Users_id);
+  const { user_id } = req;
+const FoundGroups = await ArchivedGroups(user_id);
   
     return FoundGroups === false
       ? failResponce(res)

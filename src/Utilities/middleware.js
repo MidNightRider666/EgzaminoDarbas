@@ -50,9 +50,10 @@ async function validateToken(req, res, next) {
   const verifyResult = verifyJwtToken(tokenGotFromUser);
 
   if (verifyResult === false) return failResponce(res, 'invalid token', 403);
-  req.user_Id = verifyResult.id;
+  req.user_id = verifyResult.id;
   next();
 }
+
 
 module.exports = {
   validateUserLogging,
