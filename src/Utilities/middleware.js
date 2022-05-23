@@ -4,7 +4,6 @@ const { verifyJwtToken } = require('../Utilities/helper');
 
 async function validateUserRegistering(req, res, next) {
   const UseValidation = Joi.object({
-    full_name: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(5).max(50).required().label('Password'),
     confirmPassword: Joi.any()
