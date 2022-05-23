@@ -8,7 +8,7 @@ async function CreateUser(Email, Password) {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
       INSERT INTO ${tableName} (Email, Password)
-      VALUES (?, ?, ?)
+      VALUES (?, ?)
       `;
     const [insertResult] = await conn.execute(sql, [
       Email,

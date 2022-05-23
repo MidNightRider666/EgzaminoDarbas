@@ -4,11 +4,11 @@ const { verifyJwtToken } = require('../Utilities/helper');
 
 async function validateUserRegistering(req, res, next) {
   const UseValidation = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(5).max(50).required().label('Password'),
+    Email: Joi.string().email().required(),
+    Password: Joi.string().min(5).max(50).required().label('Password'),
     confirmPassword: Joi.any()
       .required()
-      .equal(Joi.ref('password'))
+      .equal(Joi.ref('Password'))
       .label('Confirm password')
       .options({ messages: { 'any.only': '{{#label}} does not match' } }),
   });
@@ -27,8 +27,8 @@ async function validateUserRegistering(req, res, next) {
 }
 async function validateUserLogging(req, res, next) {
   const UseValidation = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(5).max(50).required(),
+    Email: Joi.string().email().required(),
+    Password: Joi.string().min(5).max(50).required(),
   });
 
   try {

@@ -7,8 +7,8 @@ const {
 } = require('../Utilities/helper');
 
 async function registering(req, res) {
-  const {Email, password } = req.body;
-  const hiddenpassword = HidePass(password);
+  const {Email, Password } = req.body;
+  const hiddenpassword = HidePass(Password);
 
   const insertResult = await CreateUser(Email, hiddenpassword);
   return insertResult === false
@@ -17,7 +17,7 @@ async function registering(req, res) {
 }
 
 async function loging(req, res) {
-  const { Email, password } = req.body;
+  const { Email, Password } = req.body;
 
   const findResults = await findUserWithEmail(Email);
   if (findResults === false) return failResponce(res);
@@ -28,7 +28,7 @@ async function loging(req, res) {
     );
   const UserObj = findResults[0];
 
-  if (!verifyPass(password, UserObj)) {
+  if (!verifyPass(Password, UserObj)) {
     return failResponce(
       res,
       'Login failed. Invalid Email and Password combination',
