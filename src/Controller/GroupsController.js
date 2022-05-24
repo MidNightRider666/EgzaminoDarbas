@@ -2,7 +2,8 @@ const { failResponce, successResponce } = require('../Utilities/dbHelper');
 const {
   GetAccByUserAndGroups,
   ArchiveGroups,
-  ArchivedGroups
+  ArchivedGroups,
+  RemoveArchiveGroups
 } = require('../Models/GroupsModel');
 
 async function GetAccIndex(req, res) {
@@ -21,6 +22,13 @@ async function ArchGroups(req, res) {;
     : successResponce(res, FoundGroups);
 }
 
+async function RemoveArchGroups(req, res) {;
+  const FoundGroups = await RemoveArchiveGroups(id);
+  return FoundGroups === false
+    ? failResponce(res)
+    : successResponce(res, FoundGroups);
+}
+
 async function GetArchivedGroups(req, res) {
   const { user_id } = req;
 const FoundGroups = await ArchivedGroups(user_id);
@@ -33,5 +41,6 @@ const FoundGroups = await ArchivedGroups(user_id);
 module.exports = {
   GetAccIndex,
   ArchGroups,
-  GetArchivedGroups
+  GetArchivedGroups,
+  RemoveArchGroups
 };

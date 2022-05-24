@@ -40,6 +40,22 @@ async function ArchiveGroups(id) {
   }
 }
 
+async function RemoveArchiveGroups(id) {
+  try {
+    const conn = await mysql.createConnection(dbConfig);
+    const sql = `
+    UPDATE ${tablename2}
+    SET archived = 0
+    WHERE id = ?
+    `;
+    const [insertResult] = await conn.execute(sql [id]);
+    await conn.close();
+    return insertResult;
+  } catch (error) {
+    return false;
+  }
+}
+
 async function ArchivedGroups(userId) {
     try {
       const conn = await mysql.createConnection(dbConfig);
@@ -62,5 +78,6 @@ async function ArchivedGroups(userId) {
 module.exports = {
   GetAccByUserAndGroups,
   ArchiveGroups,
-  ArchivedGroups
+  ArchivedGroups,
+  RemoveArchiveGroups
 };
