@@ -9,19 +9,19 @@
     "eslint-plugin-import": "^2.24.2"
   },
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MariusCodeAcademy/books-mysql-async-type1.git"
+    "url": "git+https://github.com/MidNightRider666/EgzaminoDarbas.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MariusCodeAcademy/books-mysql-async-type1/issues"
+    "url": "https://github.com/MidNightRider666/EgzaminoDarbas/issues"
   },
-  "homepage": "https://github.com/MariusCodeAcademy/books-mysql-async-type1#readme",
+  "homepage": "https://github.com/MidNightRider666/EgzaminoDarbas#readme",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",
