@@ -24,6 +24,38 @@ async function GetAccByUserAndGroups(userId) {
   }
 }
 
+async function insertGroups(NewGroupData) {
+  try {
+    const { Title, Category, Description} = NewGroupData;
+    const conn = await mysql.createConnection(dbConfig);
+    const sql = `
+    INSERT INTO groups (Title, Category, Description)
+    VALUES(?, ?, ?);
+    `;
+    const [InsertGroup] = await conn.execute(sql, [Title, Category, Description]);
+    await conn.close();
+    return InsertGroup;
+  } catch (error) {
+    return false;
+  }
+}
+
+async function insertingGroups(group_id, user_id) {
+  try {
+    const conn = await mysql.createConnection(dbConfig);
+    const sql = `
+      INSERT INTO accounts (group_id, user_id) 
+      VALUES(?, ?);
+    `;
+    const [InsertGroup] = await conn.execute(sql, [group_id, user_id]);
+    await conn.close();
+    return InsertGroup;
+  } catch (error) {
+    return false;
+  }
+}
+
+
 async function ArchiveGroups(id) {
   try {
     const conn = await mysql.createConnection(dbConfig);
@@ -79,5 +111,7 @@ module.exports = {
   GetAccByUserAndGroups,
   ArchiveGroups,
   ArchivedGroups,
-  RemoveArchiveGroups
+  RemoveArchiveGroups,
+  insertGroups,
+  insertingGroups
 };

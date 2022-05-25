@@ -3,13 +3,27 @@ const {
   GetAccByUserAndGroups,
   ArchiveGroups,
   ArchivedGroups,
-  RemoveArchiveGroups
+  RemoveArchiveGroups,
+  insertGroups,
+  insertingGroups
 } = require('../Models/GroupsModel');
 
 async function GetAccIndex(req, res) {
   const { user_id} = req;
-const FoundGroups = await GetAccByUserAndGroups(user_id);
+  const FoundGroups = await GetAccByUserAndGroups(user_id);
+  console.log('FoundGroups===', FoundGroups);
+  return FoundGroups === false
+    ? failResponce(res)
+    : successResponce(res, FoundGroups);
+}
 
+async function SendInsertGroups(req, res) {
+  const { user_id} = req;
+  const NewGroupData = req.body
+  const FoundGroups = await insertGroups(NewGroupData);
+  console.log('FoundGroups==', FoundGroups);
+  const serverResponse = await insertingGroups(FoundGroups.insertId, user_id )
+  console.log('serverResponse===', serverResponse);
   return FoundGroups === false
     ? failResponce(res)
     : successResponce(res, FoundGroups);
@@ -42,5 +56,6 @@ module.exports = {
   GetAccIndex,
   ArchGroups,
   GetArchivedGroups,
-  RemoveArchGroups
+  RemoveArchGroups,
+  SendInsertGroups
 };
