@@ -10,10 +10,7 @@ async function CreateUser(Email, Password) {
       INSERT INTO ${tableName} (Email, Password)
       VALUES (?, ?)
       `;
-    const [insertResult] = await conn.execute(sql, [
-      Email,
-      Password,
-    ]);
+    const [insertResult] = await conn.execute(sql, [Email, Password]);
     await conn.close();
     return insertResult;
   } catch (error) {

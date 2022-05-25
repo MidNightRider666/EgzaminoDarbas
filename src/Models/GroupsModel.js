@@ -26,13 +26,17 @@ async function GetAccByUserAndGroups(userId) {
 
 async function insertGroups(NewGroupData) {
   try {
-    const { Title, Category, Description} = NewGroupData;
+    const { Title, Category, Description } = NewGroupData;
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
-    INSERT INTO groups (Title, Category, Description)
+    INSERT INTO ${tablename2} (Title, Category, Description)
     VALUES(?, ?, ?);
     `;
-    const [InsertGroup] = await conn.execute(sql, [Title, Category, Description]);
+    const [InsertGroup] = await conn.execute(sql, [
+      Title,
+      Category,
+      Description,
+    ]);
     await conn.close();
     return InsertGroup;
   } catch (error) {
@@ -44,7 +48,7 @@ async function insertingGroups(group_id, user_id) {
   try {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
-      INSERT INTO accounts (group_id, user_id) 
+      INSERT INTO ${tablename3} (group_id, user_id) 
       VALUES(?, ?);
     `;
     const [InsertGroup] = await conn.execute(sql, [group_id, user_id]);
@@ -55,7 +59,6 @@ async function insertingGroups(group_id, user_id) {
   }
 }
 
-
 async function ArchiveGroups(id) {
   try {
     const conn = await mysql.createConnection(dbConfig);
@@ -64,7 +67,7 @@ async function ArchiveGroups(id) {
     SET archived = 1
     WHERE id = ?
     `;
-    const [insertResult] = await conn.execute(sql [id]);
+    const [insertResult] = await conn.execute(sql[id]);
     await conn.close();
     return insertResult;
   } catch (error) {
@@ -80,7 +83,7 @@ async function RemoveArchiveGroups(id) {
     SET archived = 0
     WHERE id = ?
     `;
-    const [insertResult] = await conn.execute(sql [id]);
+    const [insertResult] = await conn.execute(sql[id]);
     await conn.close();
     return insertResult;
   } catch (error) {
@@ -89,9 +92,9 @@ async function RemoveArchiveGroups(id) {
 }
 
 async function ArchivedGroups(userId) {
-    try {
-      const conn = await mysql.createConnection(dbConfig);
-      const sql = `
+  try {
+    const conn = await mysql.createConnection(dbConfig);
+    const sql = `
       SELECT groups.Id, groups.Title
         FROM ((${tableName} 
           INNER JOIN ${tablename2} ON accounts.group_id = groups.Id) 
@@ -99,13 +102,13 @@ async function ArchivedGroups(userId) {
           WHERE groups.Archived = 1
           AND
           user_id = ?;`;
-          const [Acc] = await conn.query(sql, [userId]);
-          await conn.close();
-          return Acc;
-    } catch (error) {
-      return false;
-    }
+    const [Acc] = await conn.query(sql, [userId]);
+    await conn.close();
+    return Acc;
+  } catch (error) {
+    return false;
   }
+}
 
 module.exports = {
   GetAccByUserAndGroups,
@@ -113,5 +116,5 @@ module.exports = {
   ArchivedGroups,
   RemoveArchiveGroups,
   insertGroups,
-  insertingGroups
+  insertingGroups,
 };

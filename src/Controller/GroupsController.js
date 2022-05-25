@@ -5,11 +5,11 @@ const {
   ArchivedGroups,
   RemoveArchiveGroups,
   insertGroups,
-  insertingGroups
+  insertingGroups,
 } = require('../Models/GroupsModel');
 
 async function GetAccIndex(req, res) {
-  const { user_id} = req;
+  const { user_id } = req;
   const FoundGroups = await GetAccByUserAndGroups(user_id);
   console.log('FoundGroups===', FoundGroups);
   return FoundGroups === false
@@ -18,25 +18,26 @@ async function GetAccIndex(req, res) {
 }
 
 async function SendInsertGroups(req, res) {
-  const { user_id} = req;
-  const NewGroupData = req.body
+  // const { user_id } = req;
+  const NewGroupData = req.body;
   const FoundGroups = await insertGroups(NewGroupData);
+  console.log('NewGroupData===', NewGroupData);
   console.log('FoundGroups==', FoundGroups);
-  const serverResponse = await insertingGroups(FoundGroups.insertId, user_id )
-  console.log('serverResponse===', serverResponse);
+  // const serverResponse = await insertingGroups(FoundGroups.insertId, user_id);
+  // console.log('serverResponse===', serverResponse);
   return FoundGroups === false
     ? failResponce(res)
     : successResponce(res, FoundGroups);
 }
 
-async function ArchGroups(req, res) {;
+async function ArchGroups(req, res) {
   const FoundGroups = await ArchiveGroups(id);
   return FoundGroups === false
     ? failResponce(res)
     : successResponce(res, FoundGroups);
 }
 
-async function RemoveArchGroups(req, res) {;
+async function RemoveArchGroups(req, res) {
   const FoundGroups = await RemoveArchiveGroups(id);
   return FoundGroups === false
     ? failResponce(res)
@@ -45,17 +46,17 @@ async function RemoveArchGroups(req, res) {;
 
 async function GetArchivedGroups(req, res) {
   const { user_id } = req;
-const FoundGroups = await ArchivedGroups(user_id);
-  
-    return FoundGroups === false
-      ? failResponce(res)
-      : successResponce(res, FoundGroups);
-  }
+  const FoundGroups = await ArchivedGroups(user_id);
+
+  return FoundGroups === false
+    ? failResponce(res)
+    : successResponce(res, FoundGroups);
+}
 
 module.exports = {
   GetAccIndex,
   ArchGroups,
   GetArchivedGroups,
   RemoveArchGroups,
-  SendInsertGroups
+  SendInsertGroups,
 };
