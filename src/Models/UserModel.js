@@ -14,6 +14,7 @@ async function CreateUser(Email, Password) {
     await conn.close();
     return insertResult;
   } catch (error) {
+    console.log('error===', error)
     return false;
   }
 }
@@ -29,6 +30,7 @@ async function findUserWithEmail(Email) {
     await conn.close();
     return userFound;
   } catch (error) {
+    console.log('error===', error)
     return false;
   }
 }

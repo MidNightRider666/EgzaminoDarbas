@@ -17,6 +17,7 @@ async function GetBillsByGroupID(id) {
     await conn.close();
     return bills;
   } catch (error) {
+    console.log('error===', error)
     return false;
   }
 }
