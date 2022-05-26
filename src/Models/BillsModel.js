@@ -2,17 +2,17 @@ const mysql = require('mysql2/promise');
 const { dbConfig } = require('../dbConfig');
 
 const tableName = 'bills';
-const tablename2 = 'groups';
+const tablename2 = 'registers';
 
 async function GetBillsByGroupID(id) {
   try {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
-    SELECT bills.id, bills.Status, bills.Expenses, groups.Title AS 'Group'
+    SELECT bills.id, bills.Status, bills.Expenses, registers.Title AS 'register'
     FROM ${tableName}
     LEFT JOIN ${tablename2}
-    ON bills.Group_id = groups.id
-    WHERE Group_id = ? `;
+    ON bills.register_id = registers.id
+    WHERE register_id = ? `;
     const [bills] = await conn.query(sql, [id]);
     await conn.close();
     return bills;
@@ -26,7 +26,7 @@ async function PostBils(NewBillsData) {
   try {
     const { Group_id, Status, Expenses } = NewBillsData;
     const conn = await mysql.createConnection(dbConfig);
-    const sql = `INSERT INTO ${tableName} (Group_id , Status, Expenses ) VALUES (?, ?, ?)`;
+    const sql = `INSERT INTO ${tableName} (register_id , Status, Expenses ) VALUES (?, ?, ?)`;
     const [addBillsResult] = await conn.execute(sql, [
       Group_id,
       Status,
