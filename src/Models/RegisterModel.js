@@ -9,7 +9,7 @@ async function GetAccByUserAndRegisters(userId) {
   try {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
-      SELECT registers.Id, registers.Title
+      SELECT registers.Id, registers.Title, registers.Category, registers.Description
         FROM ((${tableName} 
           INNER JOIN ${tablename2} ON accounts.register_id = registers.Id) 
           INNER JOIN ${tablename3} ON accounts.user_id = users.id)
