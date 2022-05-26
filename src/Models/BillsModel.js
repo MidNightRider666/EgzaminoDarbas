@@ -24,17 +24,18 @@ async function GetBillsByGroupID(id) {
 
 async function PostBils(NewBillsData) {
   try {
-    const { Group_id, Status, Expenses } = NewBillsData;
+    const { register_id, Status, Expenses } = NewBillsData;
     const conn = await mysql.createConnection(dbConfig);
     const sql = `INSERT INTO ${tableName} (register_id , Status, Expenses ) VALUES (?, ?, ?)`;
     const [addBillsResult] = await conn.execute(sql, [
-      Group_id,
+      register_id,
       Status,
       Expenses,
     ]);
     await conn.close();
     return addBillsResult;
   } catch (error) {
+    console.log('error===', error)
     return false;
   }
 }
