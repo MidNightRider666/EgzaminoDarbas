@@ -31,6 +31,7 @@ async function SendInsertRegisters(req, res) {
 }
 
 async function SetArchive(req, res) {
+  const { id } = req.params;
   const FoundRegisters = await ArchiveRegisters(id);
   return FoundRegisters === false
     ? failResponce(res)
@@ -38,6 +39,7 @@ async function SetArchive(req, res) {
 }
 
 async function RemoveArchRegisters(req, res) {
+  const { id } = req.params;
   const FoundRegisters = await RemoveArchiveRegisters(id);
   return FoundRegisters === false
     ? failResponce(res)
