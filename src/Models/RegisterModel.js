@@ -68,6 +68,7 @@ async function ArchiveRegisters(id) {
     UPDATE ${tablename2}
     SET Archived = 1
     WHERE Id = ?
+    LIMIT 1
     `;
     const [insertResult] = await conn.execute(sql, [id]);
     await conn.close();
@@ -85,6 +86,7 @@ async function RemoveArchiveRegisters(id) {
     UPDATE ${tablename2}
     SET Archived = 0
     WHERE Id = ?
+    LIMIT 1
     `;
     const [insertResult] = await conn.execute(sql, [id]);
     await conn.close();
