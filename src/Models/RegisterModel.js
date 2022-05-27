@@ -66,8 +66,8 @@ async function ArchiveRegisters(id) {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
     UPDATE ${tablename2}
-    SET archived = 1
-    WHERE id = ?
+    SET Archived = 1
+    WHERE Id = ?
     `;
     const [insertResult] = await conn.execute(sql, [id]);
     await conn.close();
@@ -83,8 +83,8 @@ async function RemoveArchiveRegisters(id) {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
     UPDATE ${tablename2}
-    SET archived = 0
-    WHERE id = ?
+    SET Archived = 0
+    WHERE Id = ?
     `;
     const [insertResult] = await conn.execute(sql, [id]);
     await conn.close();
