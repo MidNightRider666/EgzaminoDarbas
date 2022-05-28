@@ -18,7 +18,17 @@ async function InsertBills(req, res) {
     : successResponce(res, BillAddingResult);
 }
 
+async function deleteBills(req, res) {
+  const { id } = req.params;
+  const deleteResult = await removeBilds(id);
+  return deleteResult === false
+    ? failResponce(res)
+    : successResponce(res, deleteResult);
+}
+
+
 module.exports = {
   GetBills,
   InsertBills,
+  deleteBills
 };
