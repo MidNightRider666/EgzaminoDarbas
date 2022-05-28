@@ -1,5 +1,5 @@
 const { failResponce, successResponce } = require('../Utilities/dbHelper');
-const { GetBillsByGroupID, PostBils } = require('../Models/BillsModel');
+const { GetBillsByGroupID, PostBils, removeBills } = require('../Models/BillsModel');
 
 async function GetBills(req, res) {
   const { id } = req.params;
@@ -20,7 +20,7 @@ async function InsertBills(req, res) {
 
 async function deleteBills(req, res) {
   const { id } = req.params;
-  const deleteResult = await removeBilds(id);
+  const deleteResult = await removeBills(id);
   return deleteResult === false
     ? failResponce(res)
     : successResponce(res, deleteResult);
