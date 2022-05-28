@@ -40,7 +40,22 @@ async function PostBils(NewBillsData) {
   }
 }
 
+async function removeBills(id) {
+  try {
+    const conn = await mysql.createConnection(dbConfig);
+    const sql = `DELETE FROM ${tableName} WHERE id = ? LIMIT 1`;
+    const [deleteResult] = await conn.execute(sql, [id]);
+    await conn.close();
+    return deleteResult;
+  } catch (error) {
+    console.log('deleteResult ===', error);
+    return false;
+  }
+}
+
+
 module.exports = {
   GetBillsByGroupID,
   PostBils,
+  removeBills
 };
