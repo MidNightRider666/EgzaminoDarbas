@@ -48,6 +48,7 @@ async function validateRegsiterAdding(req, res, next) {
 
 async function validateBillsAdding(req, res, next) {
   const UseValidation = Joi.object({
+    register_id: Joi.number().required(),
     Status: Joi.string().required(),
     Expenses: Joi.number().required(),
   });
