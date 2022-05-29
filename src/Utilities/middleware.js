@@ -25,6 +25,46 @@ async function validateUserRegistering(req, res, next) {
     failResponce(res, formatedError);
   }
 }
+
+async function validateRegsiterAdding(req, res, next) {
+  const UseValidation = Joi.object({
+    Title: Joi.string().required(),
+    Category: Joi.string().required(),
+    Description: Joi.string().required(),
+  });
+
+  try {
+    await UseValidation.validateAsync(req.body, { abortEarly: false });
+    next();
+  } catch (error) {
+    // map
+    const formatedError = error.details.map((detail) => ({
+      message: detail.message,
+      field: detail.context.key,
+    }));
+    failResponce(res, formatedError);
+  }
+}
+
+async function validateBillsAdding(req, res, next) {
+  const UseValidation = Joi.object({
+    Status: Joi.string().required(),
+    Expenses: Joi.number().required(),
+  });
+
+  try {
+    await UseValidation.validateAsync(req.body, { abortEarly: false });
+    next();
+  } catch (error) {
+    // map
+    const formatedError = error.details.map((detail) => ({
+      message: detail.message,
+      field: detail.context.key,
+    }));
+    failResponce(res, formatedError);
+  }
+}
+
 async function validateUserLogging(req, res, next) {
   const UseValidation = Joi.object({
     Email: Joi.string().email().required(),
@@ -59,4 +99,6 @@ module.exports = {
   validateUserLogging,
   validateUserRegistering,
   validateToken,
+  validateRegsiterAdding,
+  validateBillsAdding
 };
