@@ -6,6 +6,6 @@ const BillRoutes = express();
 
 BillRoutes.get('/bills/:id', validateToken, GetBills);
 BillRoutes.post('/bills/post', validateToken, validateBillsAdding, InsertBills);
-BillRoutes.delete('/bills/:id', validateToken, deleteBills);
+BillRoutes.delete('/bills/remove/:id', validateToken, deleteBills);
 
 module.exports = BillRoutes;
